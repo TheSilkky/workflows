@@ -43,7 +43,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha
-            ${{ inputs.image-version && format('type=semver,pattern={{version}},value=v{0}', inputs.image-version) }}
+            ${{ inputs.image-version && format('type=semver,pattern={{version}},value={0}', inputs.image-version) }}
           flavor: |
             latest=true
 
