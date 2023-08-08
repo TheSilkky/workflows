@@ -12,6 +12,9 @@ on:
       context:
         required: true
         type: string
+      file:
+        required: false
+        type: string
       build-args:
         required: false
         type: string
@@ -84,6 +87,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ${{ inputs.context }}
+          file: ${{ inputs.file }}
           build-args: ${{ inputs.build-args }}
           platforms: ${{ inputs.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
