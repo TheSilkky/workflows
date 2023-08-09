@@ -49,8 +49,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ${{ inputs.ghcr && format('ghcr.io/{0}', inputs.image) || " " }}
-            ${{ inputs.dockerhub && inputs.image || " " }}
+            ${{ inputs.ghcr && format('ghcr.io/{0}', inputs.image) || null }}
+            ${{ inputs.dockerhub && inputs.image || null }}
           tags: |
             type=schedule,pattern={{date 'YYYYMMDD'}}
             type=ref,event=branch
