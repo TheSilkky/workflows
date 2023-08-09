@@ -21,11 +21,19 @@ on:
       platforms:
         required: true
         type: string
+      ghcr:
+        required: false
+        default: true
+        type: boolean
+      dockerhub:
+        required: false
+        default: true
+        type: boolean
     secrets:
       DOCKERHUB_USERNAME:
-        required: true
+        required: false
       DOCKERHUB_TOKEN:
-        required: true
+        required: false
 
 jobs:
   build-push:
@@ -62,7 +70,7 @@ jobs:
           version: latest
 
       - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && inputs.ghcr
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -70,7 +78,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && inputs.dockerhub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
